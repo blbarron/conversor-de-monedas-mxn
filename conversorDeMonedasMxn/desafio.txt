@@ -1,0 +1,126 @@
+En este paso crucial, es fundamental comprender mejor la API de tasas de cambio, revisar su documentación y aprender cómo obtener la clave de API. Esta clave es esencial para realizar solicitudes y obtener datos actualizados. Asegúrate de seguir cuidadosamente las instrucciones proporcionadas por la API Exchange Rate API u otra similar que hayas elegido.
+https://v6.exchangerate-api.com/v6/
+Para importar la biblioteca Gson en IntelliJ, sigue estos pasos:
+
+Abre tu proyecto en IntelliJ.
+
+Haz clic derecho sobre la carpeta del proyecto en el panel izquierdo.
+
+Selecciona "Open Module Settings" en el menú contextual.
+
+En la ventana que se abre, ve a la pestaña "Dependencies".
+
+Haz clic en el signo "+" en la esquina inferior izquierda y elige "Library".
+
+Busca "gson" en el cuadro de búsqueda.
+
+Selecciona la versión de Gson que desees utilizar.
+
+Haz clic en "OK" para cerrar la ventana.
+
+Ahora, la biblioteca Gson está agregada a tu proyecto y puedes comenzar a utilizarla importando sus clases en tus archivos Java. Por ejemplo:
+
+En la cuarta fase de nuestro desafío, empleamos la clase HttpClient para realizar solicitudes a la API de tasas de cambio y obtener datos esenciales. El uso de HttpClient en Java facilita la conexión y la obtención de respuestas de manera eficiente. Además, proporciona una base sólida para realizar operaciones HTTP de manera más estructurada y versátil. Explorar y entender el manejo de esta clase en Java no solo optimiza el proceso de solicitud.
+En la quinta fase de nuestro desafío, nos sumergimos en el uso de la clase HttpRequest para configurar y personalizar nuestras solicitudes a la API de tasas de cambio. La clase HttpRequest en Java nos brinda un control detallado sobre los parámetros de nuestras solicitudes, lo que resulta esencial para adaptar la consulta a nuestras necesidades específicas. Aprender a utilizar la clase HttpRequest no solo es crucial para el éxito de nuestro proyecto, sino que también proporciona una comprensión más profunda de cómo interactuar eficientemente con APIs en Java.
+
+En la sexta fase de nuestro desafío, nos enfocamos en el uso de la interfaz HttpResponse para gestionar las respuestas recibidas de la API. La interfaz HttpResponse en Java ofrece una estructura que permite acceder y analizar los diferentes elementos de una respuesta HTTP. Al entender cómo trabajar con esta interfaz, podrás extraer información significativa de las respuestas, como códigos de estado, encabezados y el cuerpo de la respuesta, que normalmente se presenta en formato JSON.
+En la séptima fase de nuestro desafío, nos sumergimos en el análisis de la respuesta JSON utilizando la biblioteca Gson en Java. La manipulación de datos JSON es esencial, ya que la mayoría de las respuestas de las API se presentan en este formato.
+
+--> Para facilitar el análisis de los datos que se obtendrán de la API, recomendamos el uso de herramientas como Postman.
+
+Con la biblioteca Gson, puedes realizar el mapeo eficiente de los datos JSON a objetos Java, facilitando así la extracción y manipulación de la información necesaria.
+
+Recuerda utilizar las clases proporcionadas por Gson, como JsonParser y JsonObject, para acceder a las distintas propiedades de la respuesta JSON.
+En la octava fase de nuestro desafío, nos enfocamos en el proceso de filtrar las monedas utilizando la biblioteca Gson en Java.
+
+Para acceder a datos específicos, como los valores de las diferentes monedas, es esencial comprender cómo navegar por la estructura JSON de la respuesta de la API.
+
+Estructura JSON:
+
+Preview unavailable
+Enlace: https://www.exchangerate-api.com/docs/java-currency-api
+
+Para el filtrado de monedas, será necesario utilizar el atributo "Currency Code" del JSON. Para el desafío, podrás elegir al menos tres "Currency Code" para incluir en tu aplicación. Estos códigos son:
+
+ARS - Peso argentino
+
+BOB - Boliviano boliviano
+
+BRL - Real brasileño
+
+CLP - Peso chileno
+
+COP - Peso colombiano
+
+USD - Dólar estadounidense
+
+
+Preview unavailable
+Enlace: https://www.exchangerate-api.com/docs/supported-currencies
+
+Ejemplo simple de conversión de moneda Java
+
+Este ejemplo se basa en la biblioteca GSON de Google.
+// Setting URL
+String url_str = "https://v6.exchangerate-api.com/v6/YOUR-API-KEY/latest/USD";
+
+// Making Request
+URL url = new URL(url_str);
+HttpURLConnection request = (HttpURLConnection) url.openConnection();
+request.connect();
+
+// Convert to JSON
+JsonParser jp = new JsonParser();
+JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+JsonObject jsonobj = root.getAsJsonObject();
+
+// Accessing object
+String req_result = jsonobj.get("result").getAsString();
+							
+Esto devolverá los tipos de cambio de USD a todas las demás monedas que admitimos:
+{
+	"result": "success",
+	"documentation": "https://www.exchangerate-api.com/docs",
+	"terms_of_use": "https://www.exchangerate-api.com/terms",
+	"time_last_update_unix": 1585267200,
+	"time_last_update_utc": "Fri, 27 Mar 2020 00:00:00 +0000",
+	"time_next_update_unix": 1585353700,
+	"time_next_update_utc": "Sat, 28 Mar 2020 00:00:00 +0000",
+	"base_code": "USD",
+	"conversion_rates": {
+		"USD": 1,
+		"AUD": 1.4817,
+		"BGN": 1.7741,
+		"CAD": 1.3168,
+		"CHF": 0.9774,
+		"CNY": 6.9454,
+		"EGP": 15.7361,
+		"EUR": 0.9013,
+		"GBP": 0.7679,
+		"...": 7.8536,
+		"...": 1.3127,
+		"...": 7.4722, etc. etc.
+	}
+}
+https://www.exchangerate-api.com/docs/supported-currencies
+en el enlace anterior vienen los codigos de monedas admitidas
+En esta novena fase, finalmente realizaremos las conversiones entre las monedas, ahora que ya tenemos los valores de las tasas de cambio en nuestras manos :raised_hands:
+
+De este modo, el próximo paso es implementar la lógica de conversión utilizando las tasas obtenidas para calcular los valores convertidos entre las monedas deseadas.
+
+TIP: Una sugerencia es crear métodos o funciones específicas para llevar a cabo estos cálculos, lo que hará que el código sea más modular y fácil de comprender.
+
+Experimenta utilizando variables para almacenar los valores ingresados por el usuario, aplicar las tasas de conversión y mostrar los resultados finales.
+
+Esta fase representa la culminación del desafío, donde todas las piezas encajan para ofrecer una experiencia completa de conversión de monedas.
+
+En esta etapa del desafío, nos adentraremos en la interacción con el usuario, implementando una interfaz textual a través de la consola que presenta opciones de conversión de monedas. La estructura incluirá un menú dentro de un bucle de repetición, permitiendo al usuario seleccionar opciones numéricas y proporcionar datos para la conversión, utilizando la clase Scanner para capturar la entrada do usuário.
+
+Al final, el programa mostrará el valor convertido según la elección del usuario. Además, es fundamental realizar pruebas exhaustivas para garantizar el correcto funcionamiento del programa, simulando diversas situaciones y recorridos para identificar y corregir posibles errores.
+
+A continuación, un ejemplo de cómo podrías estructurar tu menú para interactuar con el usuario en tu conversor de monedas. Úsalo como inspiración :rocket:
+
+debe contar con un menu que de la bienvenida con caracteres especiales que lo separen de las opciones y luego el menu de 6 opciones, de dolar a peso argentino de peso argentino a dolar, de dolar a real brasileño, de real brasileño a dolar, de dolar a peso colombiano y de peso colombiano a dolar y que te de de a elegir una opcion y cuando te haga la conversion pregunte si deseas continuar, o salir y debe serapar con caracteres especiales menu de bienvenida y cuando de las gracias, estructurando en base al caracter mas largo para que se vea estructurado y del mismo tamaño que la opcion mas larga
+este es el link https://v6.exchangerate-api.com/v6/
+esta es la api key
+con mensaje de bienvenida, menu separado con caracteres especiales, y que al cerrar de las gracias por usar la aplicacion
